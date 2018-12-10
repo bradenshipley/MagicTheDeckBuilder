@@ -1,20 +1,24 @@
-.App-header {
+.headerComponent {
   background-color: #282c34;
-  height: 30vh;
+  height: 20vh;
   width: 100vw;
   text-align: center;
   top: 0;
-  padding-top: 0;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
   position: fixed;
   z-index: 5;
+  display: block;
+}
+.App-header {
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 0;
+  height: 10vh;
+  position: relative;
 }
 
-.cardImg {
-  /* height: 350px;
-  width: 250px; */
+.app {
+  display: flex;
 }
 
 .cardArea {
@@ -24,24 +28,99 @@
   overflow: auto;
 }
 
-.card-container {
+.filterInputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 23px;
+  align-items: center;
+}
+.card-container-showAll {
   border: 5px solid black;
-  margin-top: 30vh;
+  margin-top: 20vh;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   position: relative;
   overflow-x: scroll;
   justify-content: space-around;
+  margin-bottom: 3vh;
 }
+.card-container-myDeck {
+  border: 5px solid black;
+  width: 99vw;
+  direction: ltr;
+  margin-top: 20vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin-bottom: 0;
+  justify-content: center;
+  /* margin-bottom: 3vh; */
+}
+.card-container-pairedview {
+  border: 5px solid black;
+  margin-top: 0vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: relative;
 
+  overflow-x: scroll;
+
+  justify-content: space-around;
+  margin-bottom: 2vh;
+}
+.DeckButtons {
+  display: flex;
+  justify-content: center;
+  height: 5vh;
+  align-items: center;
+  margin-bottom: 0;
+}
 .card {
   display: flex;
   flex-direction: column;
   margin: 10px;
   margin-bottom: auto;
-  /* overflow: auto; */
 }
 .card :hover {
   box-shadow: 0 0 20px gold;
-  transform: scale(1.1);
+  transform: scale(1.05);
+}
+.cardImg {
+  height: 325px;
+  width: 225px;
+  justify-content: center;
+}
+.deckviewcard {
+  display: flex;
+  justify-content: center;
+}
+.nameChangeBar {
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.loading-spinner {
+  position: absolute;
+  top: calc(50% - 4em);
+  left: calc(50% - 4em);
+  width: 6em;
+  height: 6em;
+  border: 1.1em solid rgba(0, 0, 0, 0.2);
+  border-left: 1.1em solid #000000;
+  border-radius: 50%;
+  animation: load8 1.1s infinite linear;
+}
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

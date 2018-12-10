@@ -1,15 +1,18 @@
 import React, { Component } from "react"
-import Header from "./Header"
 
 class Filters extends Component {
   constructor(props) {
     super(props)
-
-    // this.handleUpdateName = this.handleUpdateName.bind(this)
+    this.state = {
+      nameSearchInput: "",
+      colorValue: "",
+      rarityValue: "",
+      formatValue: "",
+      myDeckSelected: false
+    }
+    this.handleUpdateName = this.handleUpdateName.bind(this)
     // this.handleUpdateColor = this.handleUpdateColor.bind(this)
     // this.handleUpdateRarity = this.handleUpdateSet.bind(this)
-    // this.handleUpdateCost = this.handleUpdateCost.bind(this)
-    // this.handleUpdateFormat = this.handleUpdateFormate.bind(this)
   }
   handleUpdateName(e) {
     this.props.handleFilterChange("nameSearchInput", e.target.value)
@@ -21,15 +24,13 @@ class Filters extends Component {
     this.props.handleFilterChange("setValue", e.target.value)
   }
 
-  // handleUpdateFormat(e) {
-  //   this.props.handleFilterChange("formatValue", e.target.value)
-  // }
   render() {
+    var pstyle = {
+      color: "white",
+      fontSize: "12px"
+    }
     return (
       <div className="filterInputs">
-        {
-          //use this component again in the myDeck page. could this component hold the state of the forms? That would solve one of the requirements easy
-        }
         <input placeholder="Name" />
         <select placeholder="Color">
           <option value="">color</option>
@@ -46,8 +47,9 @@ class Filters extends Component {
           <option value="rare">rare</option>
           <option value="mythic">mythic</option>
         </select>
-
-        {/* <select placeholder="Format" /> */}
+        <br />
+        <input type="checkbox" text="show multiple" />
+        <p style={pstyle}>Show Multiple</p>
       </div>
     )
   }
