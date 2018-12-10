@@ -23,15 +23,17 @@ class App extends Component {
     this.showAllCards = this.showAllCards.bind(this)
     this.addCardToDeck = this.addCardToDeck.bind(this)
     this.deleteCardFromDeck = this.deleteCardFromDeck.bind(this)
+    this.handleUpdateName = this.handleUpdateName.bind(this)
   }
   componentDidMount() {
     axios.get(`/api/cards`).then(res => {
       this.setState({ cards: res.data, loading: false })
     })
-    axios.get("api/cards/getMyDeck").then(res => {
+    axios.get("/api/cards/getMyDeck").then(res => {
       this.setState({ myDeck: res.data })
     })
   }
+
   //this is going to handle updating each state value, without having multiple 'updateWhatever' methods
 
   handleFilterChange(name, value) {
@@ -72,22 +74,51 @@ class App extends Component {
       })
     })
   }
+  handleUpdateName = (card, name, previousName) => {
+    axios.put(`/api/cards/${card.number}`, {
+      name: name
+    })
+  }
 
   render() {
-    const card = this.state.cards.map((card, index) => {
-      return (
-        <div className="card" key={index}>
-          <img
-            className="cardImg"
-            src={card.imageUrl}
-            alt=""
-            height="350px"
-            width="250px"
-            onClick={() => this.addCardToDeck(card)}
-          />
-        </div>
+    const card = this.state.cards
+      .filter(card =>
+        card.name.toLowerCase().includes(this.state.nameSearchInput)
       )
-    })
+      .filter(card => {
+        if (!this.state.colorValue) {
+          return true
+        } else {
+          return (
+            this.state.colorValue && card.colors.includes(this.state.colorValue)
+          )
+        }
+      })
+      .filter(card => {
+        if (!this.state.rarityValue) {
+          return true
+        } else {
+          return (
+            this.state.rarityValue &&
+            card.rarity.toLowerCase().includes(this.state.rarityValue)
+          )
+        }
+      })
+
+      .map((card, index) => {
+        return (
+          <div className="card" key={index}>
+            <img
+              className="cardImg"
+              src={card.imageUrl}
+              alt=""
+              height="350px"
+              width="250px"
+              onClick={() => this.addCardToDeck(card)}
+            />
+          </div>
+        )
+      })
     const { loading } = this.state
 
     if (loading) {
@@ -132,7 +163,9 @@ class App extends Component {
 
           <MyDeck
             myDeck={this.state.myDeck}
+            handleDeckChange={this.handleDeckChange}
             deleteCardFromDeck={this.deleteCardFromDeck}
+            handleUpdateName={this.handleUpdateName}
           />
           <div className="card-container-pairedview">{card}</div>
         </div>

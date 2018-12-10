@@ -6,10 +6,10 @@ const getCards = (req, res, next) => {
   axios
     .get("https://api.magicthegathering.io/v1/cards")
     .then(response => {
-      myCards = response.data.cards.splice(0, 100)
+      myCards = response.data.cards
       res.status(200).json(myCards)
     })
-    .catch(err => console.log("could not get"))
+    .catch(err => console.log("could not get API"))
 
   // res.status(200).json(myCards)
 }
@@ -24,9 +24,12 @@ const postCard = (req, res, next) => {
 //add this into get request to populate myDeck on front end
 
 const updateCard = (req, res, next) => {
+  console.log(req.body)
   myDeck = myDeck.map(card =>
     card.number == req.params.number
-      ? Object.assign(card, { name: req.body.name })
+      ? Object.assign(card, {
+          name: req.body.name
+        })
       : card
   )
   return res.status(200).json(myDeck)

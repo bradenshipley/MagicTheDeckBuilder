@@ -7,23 +7,29 @@ export default class myDeck extends Component {
     this.state = {
       updatedName: ""
     }
-    this.handleUpdateName = this.handleUpdateName.bind(this)
+
     this.handleNameChanger = this.handleNameChanger.bind(this)
   }
+  ComponentDidUpdate(prevProps, prevState) {
+    if (prevState.updatedName != this.state.updatedName) {
+      this.props.handleDeckChange()
+    }
+  }
 
-  // componentDidMount() {
-  //   axios.get("/api/cards/getMyDeck").then(res => {
-  //     this.props.myDeck = res.data
-  //   })
+  // handleUpdateName = (card, e) => {
+  //   axios
+  //     .put(`/api/cards/${card.number}`, {
+  //       name: this.state.updatedName
+  //     })
+  //     .then(res => {
+  //       this.setState({ updatedName: "" })
+  //     })
   // }
-  handleUpdateName = (card, e) => {
-    axios
-      .put(`/api/cards/${card.number}`, {
-        name: this.state.updatedName
-      })
-      .then(res => {
-        this.setState({ updatedName: res.data.name })
-      })
+  invokeUpdateName = (card, updatedName) => {
+    this.props.handleUpdateName(card, updatedName)
+    this.setState({
+      updatedName: this.state.currentInput
+    })
   }
   handleNameChanger(e) {
     this.setState({
@@ -38,15 +44,15 @@ export default class myDeck extends Component {
           <form
             action=""
             onSubmit={e => {
-              e.preventDefault()
-              this.handleUpdateName(card, e, this.state.updatedName)
+              // e.preventDefault()
+              this.invokeUpdateName(card, this.state.updatedName)
             }}
           >
             <input
               type="text"
               className="nameChangeBar"
               placeholder={card.name}
-              value={this.state.updatedName}
+              // defaultValue={this.state.updatedName}
               onChange={e => {
                 console.log(this.state.updatedName)
                 this.handleNameChanger(e)
