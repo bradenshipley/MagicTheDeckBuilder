@@ -11,11 +11,11 @@ export default class myDeck extends Component {
     this.handleNameChanger = this.handleNameChanger.bind(this)
   }
 
-  componentDidMount() {
-    axios.get("/api/cards/myDeck").then(res => {
-      this.props.myDeck = res.data
-    })
-  }
+  // componentDidMount() {
+  //   axios.get("/api/cards/getMyDeck").then(res => {
+  //     this.props.myDeck = res.data
+  //   })
+  // }
   handleUpdateName = (card, e) => {
     axios
       .put(`/api/cards/${card.number}`, {
@@ -45,8 +45,8 @@ export default class myDeck extends Component {
             <input
               type="text"
               className="nameChangeBar"
-              action=""
               placeholder={card.name}
+              value={this.state.updatedName}
               onChange={e => {
                 console.log(this.state.updatedName)
                 this.handleNameChanger(e)

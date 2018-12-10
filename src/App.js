@@ -13,7 +13,10 @@ class App extends Component {
       myDeck: [],
       myDeckSelected: false,
       showAll: true,
-      loading: true
+      loading: true,
+      nameSearchInput: "",
+      colorValue: "",
+      rarityValue: ""
     }
     this.handleFilterChange = this.handleFilterChange.bind(this)
     this.handleDeckChange = this.handleDeckChange.bind(this)
@@ -24,6 +27,9 @@ class App extends Component {
   componentDidMount() {
     axios.get(`/api/cards`).then(res => {
       this.setState({ cards: res.data, loading: false })
+    })
+    axios.get("api/cards/getMyDeck").then(res => {
+      this.setState({ myDeck: res.data })
     })
   }
   //this is going to handle updating each state value, without having multiple 'updateWhatever' methods
@@ -39,6 +45,7 @@ class App extends Component {
       showAll: false
     })
     if (this.state.myDeck.length == 0) {
+      console.log(this.state.myDeck)
       alert("Deck is empty. Please add cards")
     }
   }
@@ -65,15 +72,11 @@ class App extends Component {
       })
     })
   }
-  // handlePatchName(){
-  //   axios.put('URLHERE', "name":e.target.value)
-  // }
 
   render() {
     const card = this.state.cards.map((card, index) => {
       return (
         <div className="card" key={index}>
-          {/* <span className="cardName">{card.name}</span> */}
           <img
             className="cardImg"
             src={card.imageUrl}
@@ -82,16 +85,12 @@ class App extends Component {
             width="250px"
             onClick={() => this.addCardToDeck(card)}
           />
-
-          {
-            // ^^^^i need to make this span editable so that I can have a .patch() request
-          }
         </div>
       )
     })
     const { loading } = this.state
 
-    if (this.state.loading) {
+    if (loading) {
       return (
         <div className="App">
           <Header

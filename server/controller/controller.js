@@ -13,20 +13,17 @@ const getCards = (req, res, next) => {
 
   // res.status(200).json(myCards)
 }
-// const getMyDeck = (req, res, next) => {
-//   res.status(200).json(myDeck)
-// }
+const getMyDeck = (req, res, next) => {
+  res.status(200).json(myDeck)
+}
 const postCard = (req, res, next) => {
   myDeck.push(req.body)
   res.status(200).json(myDeck)
 }
-const getDeck = (req, res, next) => {
-  res.status(200).json(myDeck)
-}
+
 //add this into get request to populate myDeck on front end
 
 const updateCard = (req, res, next) => {
-  console.log(req.body.name)
   myDeck = myDeck.map(card =>
     card.number == req.params.number
       ? Object.assign(card, { name: req.body.name })
@@ -43,6 +40,6 @@ module.exports = {
   deleteCard,
   getCards,
   postCard,
-  updateCard
-  // getMyDeck
+  updateCard,
+  getMyDeck
 }

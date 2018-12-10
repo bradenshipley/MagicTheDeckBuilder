@@ -68,11 +68,11 @@
   flex-direction: row;
   flex-wrap: nowrap;
   position: relative;
-
+  
   overflow-x: scroll;
 
   justify-content: space-around;
-  margin-bottom: 2vh;
+  /* margin-bottom: 2vh; */
 }
 .DeckButtons {
   display: flex;
@@ -101,9 +101,9 @@
   justify-content: center;
 }
 .nameChangeBar {
-  width: 100px;
+  width: 100%;
   justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 .loading-spinner {
   position: absolute;

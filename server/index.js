@@ -10,7 +10,7 @@ app.use(json())
 //app.get('url', cm.method)
 //cards have a unique number so number is used instead of id
 app.get("/api/cards", cm.getCards)
-// app.get("api/cards/myDeck", cm.getMyDeck)
+app.get("/api/cards/getMyDeck", cm.getMyDeck)
 app.post("/api/cards", cm.postCard)
 app.put("/api/cards/:number", cm.updateCard)
 app.delete("/api/cards/:number", cm.deleteCard)

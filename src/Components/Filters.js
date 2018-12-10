@@ -4,10 +4,9 @@ class Filters extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      nameSearchInput: "",
-      colorValue: "",
-      rarityValue: "",
-      formatValue: "",
+      
+
+      showMultiple: false,
       myDeckSelected: false
     }
     this.handleUpdateName = this.handleUpdateName.bind(this)
