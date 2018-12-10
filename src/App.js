@@ -24,6 +24,8 @@ class App extends Component {
     this.addCardToDeck = this.addCardToDeck.bind(this)
     this.deleteCardFromDeck = this.deleteCardFromDeck.bind(this)
     this.handleUpdateName = this.handleUpdateName.bind(this)
+    this.getNext100Cards = this.getNext100Cards.bind(this)
+    this.getPrevious100Cards = this.getPrevious100Cards.bind(this)
   }
   //on componentDidMount we are getting the up to date list of cards for all cards and myDeck
   componentDidMount() {
@@ -70,6 +72,17 @@ class App extends Component {
       })
     })
   }
+  //get request for the next 100 cards
+  getNext100Cards() {
+    axios
+      .get("/api/cards/getNewPage")
+      .then(response => this.setState({ cards: response.data }))
+  }
+  getPrevious100Cards() {
+    axios
+      .get("/api/cards/getPreviousPage")
+      .then(response => this.setState({ cards: response.data }))
+  }
   //.delete request from our myDeck arr server side
   deleteCardFromDeck(card) {
     axios.delete(`/api/cards/${card.number}`).then(response => {
@@ -87,12 +100,13 @@ class App extends Component {
 
   render() {
     //map to show all cards after applying the currently set filter parameters
+    console.log(this.state.cards)
     const card = this.state.cards
       .filter(card =>
         card.name.toLowerCase().includes(this.state.nameSearchInput)
       )
       .filter(card => {
-        if (!this.state.colorValue) {
+        if (!this.state.colorValue || !card.colors) {
           return true
         } else {
           return (
@@ -152,6 +166,8 @@ class App extends Component {
             handleFilterChange={this.handleFilterChange}
             handleDeckChange={this.handleDeckChange}
             handleShowAll={this.showAllCards}
+            getNext100Cards={this.getNext100Cards}
+            getPrevious100Cards={this.getPrevious100Cards}
           />
 
           <div className="card-container-showAll">{card}</div>
@@ -167,6 +183,8 @@ class App extends Component {
             handleFilterChange={this.handleFilterChange}
             handleDeckChange={this.handleDeckChange}
             showAllCards={this.showAllCards}
+            getNext100Cards={this.getNext100Cards}
+            getPrevious100Cards={this.getPrevious100Cards}
           />
 
           <MyDeck

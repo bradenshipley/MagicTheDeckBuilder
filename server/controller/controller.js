@@ -1,6 +1,7 @@
 const axios = require("axios")
 let myCards = []
 let myDeck = []
+let count = 1
 //get all cards
 const getCards = (req, res, next) => {
   axios
@@ -11,6 +12,26 @@ const getCards = (req, res, next) => {
     })
     .catch(err => console.log("could not get API"))
 }
+const getNewPage = (req, res, next) => {
+  axios
+    .get(`https://api.magicthegathering.io/v1/cards/?page=${count + 1}`)
+    .then(response => {
+      myCards = response.data.cards
+      res.status(200).json(myCards)
+    })
+  count++
+}
+const getPreviousPage = (req, res, next) => {
+  axios
+    .get(`https://api.magicthegathering.io/v1/cards/?page=${count - 1}`)
+    .then(response => {
+      myCards = response.data.cards
+      res.status(200).json(myCards)
+    })
+    .catch(err => alert("you are at the first page"))
+  count--
+}
+
 //get the cards currently added to my deck
 const getMyDeck = (req, res, next) => {
   res.status(200).json(myDeck)
@@ -43,5 +64,7 @@ module.exports = {
   getCards,
   postCard,
   updateCard,
-  getMyDeck
+  getMyDeck,
+  getNewPage,
+  getPreviousPage
 }

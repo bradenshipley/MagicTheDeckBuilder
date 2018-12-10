@@ -21,6 +21,12 @@ const Header = props => {
         </button>
         <p style={pstyle}>Filter by:</p>
         <Filters handleFilterChange={props.handleFilterChange} />
+        <button className="lessCardsButton" onClick={props.getPrevious100Cards}>
+          Previous Page
+        </button>
+        <button className="moreCardsButton" onClick={props.getNext100Cards}>
+          Next Page
+        </button>
       </div>
     </div>
   )

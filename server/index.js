@@ -7,6 +7,8 @@ const app = express()
 app.use(json())
 
 app.get("/api/cards", cm.getCards)
+app.get("/api/cards/getNewPage", cm.getNewPage)
+app.get("/api/cards/getPreviousPage", cm.getPreviousPage)
 app.get("/api/cards/getMyDeck", cm.getMyDeck)
 app.post("/api/cards", cm.postCard)
 app.put("/api/cards/:number", cm.updateCard)
