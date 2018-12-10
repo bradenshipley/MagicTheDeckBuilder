@@ -1,5 +1,6 @@
 .headerComponent {
   background-color: #282c34;
+  background-image: linear-gradient(rgb(93, 116, 192), rgb(75, 67, 67));
   height: 20vh;
   width: 100vw;
   text-align: center;
@@ -12,7 +13,6 @@
 .App-header {
   font-size: calc(10px + 2vmin);
   color: white;
-  margin: 0;
   height: 10vh;
   position: relative;
 }
@@ -68,7 +68,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   position: relative;
-  
+
   overflow-x: scroll;
 
   justify-content: space-around;

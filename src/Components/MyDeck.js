@@ -10,21 +10,13 @@ export default class myDeck extends Component {
 
     this.handleNameChanger = this.handleNameChanger.bind(this)
   }
+  //if our previous state is different, it makes sure to display our current deck by using the passed in deck view method
   ComponentDidUpdate(prevProps, prevState) {
     if (prevState.updatedName != this.state.updatedName) {
       this.props.handleDeckChange()
     }
   }
-
-  // handleUpdateName = (card, e) => {
-  //   axios
-  //     .put(`/api/cards/${card.number}`, {
-  //       name: this.state.updatedName
-  //     })
-  //     .then(res => {
-  //       this.setState({ updatedName: "" })
-  //     })
-  // }
+  //these two methods handle the onChange and onSubmit methods
   invokeUpdateName = (card, updatedName) => {
     this.props.handleUpdateName(card, updatedName)
     this.setState({
@@ -37,14 +29,14 @@ export default class myDeck extends Component {
     })
   }
   render() {
-    console.log(this.props.myDeck)
+    //mapping across our myDeck arr and displaying a card for each, no filters are applied. The ability to toggle between
+    //sorting your own deck or not to be added later
     let myDeckCards = this.props.myDeck.map(card => {
       return (
         <div className="card deckviewcard" key={card.number}>
           <form
             action=""
             onSubmit={e => {
-              // e.preventDefault()
               this.invokeUpdateName(card, this.state.updatedName)
             }}
           >
@@ -52,7 +44,6 @@ export default class myDeck extends Component {
               type="text"
               className="nameChangeBar"
               placeholder={card.name}
-              // defaultValue={this.state.updatedName}
               onChange={e => {
                 console.log(this.state.updatedName)
                 this.handleNameChanger(e)
@@ -65,6 +56,7 @@ export default class myDeck extends Component {
             alt=""
             height="350px"
             width="250px"
+            //onClick this card will be removed from our deck
             onClick={this.props.deleteCardFromDeck}
           />
         </div>

@@ -25,6 +25,7 @@ class App extends Component {
     this.deleteCardFromDeck = this.deleteCardFromDeck.bind(this)
     this.handleUpdateName = this.handleUpdateName.bind(this)
   }
+  //on componentDidMount we are getting the up to date list of cards for all cards and myDeck
   componentDidMount() {
     axios.get(`/api/cards`).then(res => {
       this.setState({ cards: res.data, loading: false })
@@ -41,6 +42,7 @@ class App extends Component {
       [name]: value
     })
   }
+  // these two change the view setting
   handleDeckChange(e) {
     this.setState({
       myDeckSelected: true,
@@ -57,6 +59,7 @@ class App extends Component {
       showAll: true
     })
   }
+  //.post request to our myDeck arr server side
   addCardToDeck = card => {
     console.log(card)
     axios.post("/api/cards", card).then(response => {
@@ -67,6 +70,7 @@ class App extends Component {
       })
     })
   }
+  //.delete request from our myDeck arr server side
   deleteCardFromDeck(card) {
     axios.delete(`/api/cards/${card.number}`).then(response => {
       this.setState({
@@ -74,6 +78,7 @@ class App extends Component {
       })
     })
   }
+  //.put request to change the listed name for the card
   handleUpdateName = (card, name, previousName) => {
     axios.put(`/api/cards/${card.number}`, {
       name: name
@@ -81,6 +86,7 @@ class App extends Component {
   }
 
   render() {
+    //map to show all cards after applying the currently set filter parameters
     const card = this.state.cards
       .filter(card =>
         card.name.toLowerCase().includes(this.state.nameSearchInput)
@@ -119,6 +125,7 @@ class App extends Component {
           </div>
         )
       })
+    //if the api hasn't returned and mounted the component we are going to display the loading animation
     const { loading } = this.state
 
     if (loading) {
@@ -134,6 +141,7 @@ class App extends Component {
           </div>
         </div>
       )
+      //deciding whether to display all card or the split deck view based on current state
     } else if (
       this.state.myDeck.length == 0 ||
       (this.state.myDeckSelected === false && this.state.showAll === true)

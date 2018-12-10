@@ -4,13 +4,14 @@ class Filters extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showMultiple: false,
+      //this is redundant
       myDeckSelected: false
     }
     this.handleUpdateName = this.handleUpdateName.bind(this)
     this.handleUpdateColor = this.handleUpdateColor.bind(this)
     this.handleUpdateRarity = this.handleUpdateRarity.bind(this)
   }
+  //these methods simply invoke the main function in app.js which is passed down as a prop to reduce rewriting
   handleUpdateName(e) {
     this.props.handleFilterChange("nameSearchInput", e.target.value)
   }
@@ -22,11 +23,13 @@ class Filters extends Component {
   }
 
   render() {
+    //setting a variable to use in inline styling below
     var pstyle = {
       color: "white",
       fontSize: "12px"
     }
     return (
+      //setting filter options which will pass up the info into our main filter method in app.js
       <div className="filterInputs">
         <input placeholder="Name" onChange={this.handleUpdateName} />
         <select placeholder="Color" onChange={this.handleUpdateColor}>
@@ -44,9 +47,6 @@ class Filters extends Component {
           <option value="rare">rare</option>
           <option value="mythic">mythic</option>
         </select>
-        <br />
-        <input type="checkbox" text="show multiple" />
-        <p style={pstyle}>Show Multiple</p>
       </div>
     )
   }

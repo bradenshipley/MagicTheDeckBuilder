@@ -1,6 +1,8 @@
 import React from "react"
 import Filters from "./Filters"
+
 const Header = props => {
+  //setting a variable to use in inline styling below
   var pstyle = {
     color: "white",
     fontSize: "12px"
