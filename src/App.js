@@ -18,6 +18,7 @@ class App extends Component {
       colorValue: "",
       rarityValue: ""
     }
+    //binding our many methods to use this state
     this.handleFilterChange = this.handleFilterChange.bind(this)
     this.handleDeckChange = this.handleDeckChange.bind(this)
     this.showAllCards = this.showAllCards.bind(this)
@@ -27,17 +28,19 @@ class App extends Component {
     this.getNext100Cards = this.getNext100Cards.bind(this)
     this.getPrevious100Cards = this.getPrevious100Cards.bind(this)
   }
-  //on componentDidMount we are getting the up to date list of cards for all cards and myDeck
+  //on componentDidMount we are getting the up to date list of cards for all cards and myDeck, pairing together
+  //two .get requests in one function
   componentDidMount() {
     axios.get(`/api/cards`).then(res => {
       this.setState({ cards: res.data, loading: false })
     })
+
     axios.get("/api/cards/getMyDeck").then(res => {
       this.setState({ myDeck: res.data })
     })
   }
 
-  //this is going to handle updating each state value, without having multiple 'updateWhatever' methods
+  //this is going to handle updating each state value, without having multiple 'updateXY' methods
 
   handleFilterChange(name, value) {
     this.setState({
@@ -51,10 +54,10 @@ class App extends Component {
       showAll: false
     })
     if (this.state.myDeck.length == 0) {
-      console.log(this.state.myDeck)
       alert("Deck is empty. Please add cards")
     }
   }
+  //updates state which will affect the conditional rendering below
   showAllCards(e) {
     this.setState({
       myDeckSelected: false,
@@ -78,12 +81,13 @@ class App extends Component {
       .get("/api/cards/getNewPage")
       .then(response => this.setState({ cards: response.data }))
   }
+  //get request for the previous 100 cards
   getPrevious100Cards() {
     axios
       .get("/api/cards/getPreviousPage")
       .then(response => this.setState({ cards: response.data }))
   }
-  //.delete request from our myDeck arr server side
+  //.delete request from our myDeck arr server side, using card.number as the unique key
   deleteCardFromDeck(card) {
     axios.delete(`/api/cards/${card.number}`).then(response => {
       this.setState({
@@ -102,10 +106,13 @@ class App extends Component {
     //map to show all cards after applying the currently set filter parameters
     console.log(this.state.cards)
     const card = this.state.cards
+      //filter cards by name
       .filter(card =>
         card.name.toLowerCase().includes(this.state.nameSearchInput)
       )
+      //filter cards by color
       .filter(card => {
+        //checking to see if there is no color filter applied, or if there is no card.color prop (some cards dont have a color value)
         if (!this.state.colorValue || !card.colors) {
           return true
         } else {
@@ -114,7 +121,9 @@ class App extends Component {
           )
         }
       })
+      //filter card by rarity value
       .filter(card => {
+        //if there is no rarity filter selected, disregard filter by returning true
         if (!this.state.rarityValue) {
           return true
         } else {
@@ -124,7 +133,7 @@ class App extends Component {
           )
         }
       })
-
+      //and finally map over our filtered arr to render each card that is left
       .map((card, index) => {
         return (
           <div className="card" key={index}>
@@ -139,7 +148,7 @@ class App extends Component {
           </div>
         )
       })
-    //if the api hasn't returned and mounted the component we are going to display the loading animation
+    //if the api hasn't returned a response and mounted the component we are going to display the loading animation
     const { loading } = this.state
 
     if (loading) {

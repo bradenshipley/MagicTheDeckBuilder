@@ -23,6 +23,7 @@ export default class myDeck extends Component {
       updatedName: this.state.currentInput
     })
   }
+  //sets current state of name to the e.target.value being put into the input field below
   handleNameChanger(e) {
     this.setState({
       updatedName: e.target.value

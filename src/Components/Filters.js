@@ -7,6 +7,7 @@ class Filters extends Component {
       //this is redundant
       myDeckSelected: false
     }
+    //binding our three filter methods
     this.handleUpdateName = this.handleUpdateName.bind(this)
     this.handleUpdateColor = this.handleUpdateColor.bind(this)
     this.handleUpdateRarity = this.handleUpdateRarity.bind(this)

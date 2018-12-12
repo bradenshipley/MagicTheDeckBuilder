@@ -16,11 +16,9 @@
   height: 10vh;
   position: relative;
 }
-
 .app {
   display: flex;
 }
-
 .cardArea {
   flex: 1;
   width: 100vw;
@@ -59,7 +57,6 @@
   overflow-y: hidden;
   margin-bottom: 0;
   justify-content: center;
-  /* margin-bottom: 3vh; */
 }
 .card-container-pairedview {
   border: 5px solid black;
@@ -68,11 +65,8 @@
   flex-direction: row;
   flex-wrap: nowrap;
   position: relative;
-
   overflow-x: scroll;
-
   justify-content: space-around;
-  /* margin-bottom: 2vh; */
 }
 .DeckButtons {
   display: flex;

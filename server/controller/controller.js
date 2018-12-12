@@ -12,6 +12,7 @@ const getCards = (req, res, next) => {
     })
     .catch(err => console.log("could not get API"))
 }
+//request next 100 items using pagination
 const getNewPage = (req, res, next) => {
   axios
     .get(`https://api.magicthegathering.io/v1/cards/?page=${count + 1}`)
@@ -21,6 +22,7 @@ const getNewPage = (req, res, next) => {
     })
   count++
 }
+//request previous 100 items using pagination
 const getPreviousPage = (req, res, next) => {
   axios
     .get(`https://api.magicthegathering.io/v1/cards/?page=${count - 1}`)
