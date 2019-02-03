@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import axios from "axios"
+
 
 export default class myDeck extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export default class myDeck extends Component {
   }
   //if our previous state is different, it makes sure to display our current deck by using the passed in deck view method
   ComponentDidUpdate(prevProps, prevState) {
-    if (prevState.updatedName != this.state.updatedName) {
+    if (prevState.updatedName !== this.state.updatedName) {
       this.props.handleDeckChange()
     }
   }

@@ -3,6 +3,8 @@ import Header from "./Components/Header"
 import "./App.css"
 import axios from "axios"
 import MyDeck from "./Components/MyDeck"
+import _ from "lodash"
+
 import LoadingSpinner from "./Components/LoadingSpinner"
 
 class App extends Component {
@@ -105,11 +107,11 @@ class App extends Component {
   render() {
     //map to show all cards after applying the currently set filter parameters
     console.log(this.state.cards)
-    const card = this.state.cards
-      //filter cards by name
-      .filter(card =>
-        card.name.toLowerCase().includes(this.state.nameSearchInput)
-      )
+    //removing duplicate cards in our returned values before filtering and  mapping over them.
+    const uniqCards = _.uniqBy(this.state.cards, "name")
+    const card = uniqCards.filter(card =>
+      card.name.toLowerCase().includes(this.state.nameSearchInput)
+    )
       //filter cards by color
       .filter(card => {
         //checking to see if there is no color filter applied, or if there is no card.color prop (some cards dont have a color value)
@@ -135,6 +137,7 @@ class App extends Component {
       })
       //and finally map over our filtered arr to render each card that is left
       .map((card, index) => {
+
         return (
           <div className="card" key={index}>
             <img

@@ -24,11 +24,6 @@ class Filters extends Component {
   }
 
   render() {
-    //setting a variable to use in inline styling below
-    var pstyle = {
-      color: "white",
-      fontSize: "12px"
-    }
     return (
       //setting filter options which will pass up the info into our main filter method in app.js
       <div className="filterInputs">
