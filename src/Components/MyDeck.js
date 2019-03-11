@@ -8,7 +8,6 @@ export default class myDeck extends Component {
       updatedName: ""
     }
 
-    this.handleNameChanger = this.handleNameChanger.bind(this)
   }
   //if our previous state is different, it makes sure to display our current deck by using the passed in deck view method
   ComponentDidUpdate(prevProps, prevState) {
@@ -24,7 +23,7 @@ export default class myDeck extends Component {
     })
   }
   //sets current state of name to the e.target.value being put into the input field below
-  handleNameChanger(e) {
+  handleNameChanger = (e) => {
     this.setState({
       updatedName: e.target.value
     })

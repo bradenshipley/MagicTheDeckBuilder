@@ -4,7 +4,6 @@ import "./App.css"
 import axios from "axios"
 import MyDeck from "./Components/MyDeck"
 import _ from "lodash"
-
 import LoadingSpinner from "./Components/LoadingSpinner"
 
 class App extends Component {
@@ -20,15 +19,6 @@ class App extends Component {
       colorValue: "",
       rarityValue: ""
     }
-    //binding our many methods to use this state
-    this.handleFilterChange = this.handleFilterChange.bind(this)
-    this.handleDeckChange = this.handleDeckChange.bind(this)
-    this.showAllCards = this.showAllCards.bind(this)
-    this.addCardToDeck = this.addCardToDeck.bind(this)
-    this.deleteCardFromDeck = this.deleteCardFromDeck.bind(this)
-    this.handleUpdateName = this.handleUpdateName.bind(this)
-    this.getNext100Cards = this.getNext100Cards.bind(this)
-    this.getPrevious100Cards = this.getPrevious100Cards.bind(this)
   }
   //on componentDidMount we are getting the up to date list of cards for all cards and myDeck, pairing together
   //two .get requests in one function
@@ -41,16 +31,14 @@ class App extends Component {
       this.setState({ myDeck: res.data })
     })
   }
-
   //this is going to handle updating each state value, without having multiple 'updateXY' methods
-
-  handleFilterChange(name, value) {
+  handleFilterChange=(name, value)=> {
     this.setState({
       [name]: value
     })
   }
   // these two change the view setting
-  handleDeckChange(e) {
+  handleDeckChange=(e)=> {
     this.setState({
       myDeckSelected: true,
       showAll: false
@@ -60,7 +48,7 @@ class App extends Component {
     }
   }
   //updates state which will affect the conditional rendering below
-  showAllCards(e) {
+  showAllCards=(e)=>{
     this.setState({
       myDeckSelected: false,
       showAll: true
@@ -78,19 +66,19 @@ class App extends Component {
     })
   }
   //get request for the next 100 cards
-  getNext100Cards() {
+  getNext100Cards=() =>{
     axios
       .get("/api/cards/getNewPage")
       .then(response => this.setState({ cards: response.data }))
   }
   //get request for the previous 100 cards
-  getPrevious100Cards() {
+  getPrevious100Cards=()=> {
     axios
       .get("/api/cards/getPreviousPage")
       .then(response => this.setState({ cards: response.data }))
   }
   //.delete request from our myDeck arr server side, using card.number as the unique key
-  deleteCardFromDeck(card) {
+  deleteCardFromDeck=(card)=> {
     axios.delete(`/api/cards/${card.number}`).then(response => {
       this.setState({
         myDeck: response.data
@@ -98,15 +86,12 @@ class App extends Component {
     })
   }
   //.put request to change the listed name for the card
-  handleUpdateName = (card, name, previousName) => {
+  handleUpdateName = (card, name) => {
     axios.put(`/api/cards/${card.number}`, {
       name: name
     })
   }
-
   render() {
-    //map to show all cards after applying the currently set filter parameters
-    console.log(this.state.cards)
     //removing duplicate cards in our returned values before filtering and  mapping over them.
     const uniqCards = _.uniqBy(this.state.cards, "name")
     const card = uniqCards.filter(card =>
@@ -137,7 +122,6 @@ class App extends Component {
       })
       //and finally map over our filtered arr to render each card that is left
       .map((card, index) => {
-
         return (
           <div className="card" key={index}>
             <img
@@ -153,7 +137,6 @@ class App extends Component {
       })
     //if the api hasn't returned a response and mounted the component we are going to display the loading animation
     const { loading } = this.state
-
     if (loading) {
       return (
         <div className="App">

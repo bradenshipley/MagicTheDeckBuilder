@@ -2,11 +2,6 @@ import React from "react"
 import Filters from "./Filters"
 
 const Header = props => {
-  //setting a variable to use in inline styling below
-  var pstyle = {
-    color: "white",
-    fontSize: "12px"
-  }
   return (
     <div className="headerComponent">
       <div className="App-header">
@@ -19,7 +14,10 @@ const Header = props => {
         <button className="allCardsButton" onClick={props.showAllCards}>
           Show All Cards
         </button>
-        <p style={pstyle}>Filter by:</p>
+        <p style={{
+          color: "white",
+          fontSize: "12px"
+        }}>Filter by:</p>
         <Filters handleFilterChange={props.handleFilterChange} />
         <button className="lessCardsButton" onClick={props.getPrevious100Cards}>
           Previous Page

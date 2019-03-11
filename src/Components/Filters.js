@@ -1,25 +1,15 @@
 import React, { Component } from "react"
 
 class Filters extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      //this is redundant
-      myDeckSelected: false
-    }
-    //binding our three filter methods
-    this.handleUpdateName = this.handleUpdateName.bind(this)
-    this.handleUpdateColor = this.handleUpdateColor.bind(this)
-    this.handleUpdateRarity = this.handleUpdateRarity.bind(this)
-  }
+
   //these methods simply invoke the main function in app.js which is passed down as a prop to reduce rewriting
-  handleUpdateName(e) {
+  handleUpdateName=(e)=> {
     this.props.handleFilterChange("nameSearchInput", e.target.value)
   }
-  handleUpdateColor(e) {
+  handleUpdateColor=(e)=> {
     this.props.handleFilterChange("colorValue", e.target.value)
   }
-  handleUpdateRarity(e) {
+  handleUpdateRarity = (e) =>{
     this.props.handleFilterChange("rarityValue", e.target.value)
   }
 
