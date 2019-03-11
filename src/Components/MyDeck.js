@@ -1,13 +1,12 @@
 import React, { Component } from "react"
 
 
-export default class myDeck extends Component {
+ class myDeck extends Component {
   constructor(props) {
     super(props)
     this.state = {
       updatedName: ""
     }
-
   }
   //if our previous state is different, it makes sure to display our current deck by using the passed in deck view method
   ComponentDidUpdate(prevProps, prevState) {
@@ -65,3 +64,4 @@ export default class myDeck extends Component {
     return <div className="card-container-myDeck">{myDeckCards}</div>
   }
 }
+export default myDeck
