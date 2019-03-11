@@ -1,6 +1,13 @@
 const express = require("express")
 const { json } = require("body-parser")
-const {getCards, getNewPage, getPreviousPage, getMyDeck, postCard, updateCard, deleteCard} = require("./controller/controller.js")
+const {
+  getCards,
+  getNewPage,
+  getPreviousPage,
+  getMyDeck,
+  postCard,
+  updateCard,
+  deleteCard } = require("./controller/controller.js")
 const port = 3001
 const app = express()
 app.use(json())
